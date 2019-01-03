@@ -84,17 +84,17 @@ type Consumer struct {
 	EMail string `json:"email,omitempty"`
 }
 
-func (obj *Endpoint) MarshalJSON() (error, string) {
+func (obj *Endpoint) MarshalJSON() (string, error) {
 	var out bytes.Buffer
 	ba, err := json.Marshal(obj)
 	if err != nil {
-		return err, "Error"
+		return "{Error}", err
 	}
 	err = json.Indent(&out, ba, "", "  ")
 	if err != nil {
-		return err, "Error"
+		return "{Error}", err
 	}
-	return nil, out.String()
+	return out.String(), nil
 }
 
 func ParseConsumer(file string) (error, *Consumer) {
