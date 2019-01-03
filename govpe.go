@@ -87,15 +87,15 @@ type Consumer struct {
 	EMail string `json:"email,omitempty"`
 }
 
-func (obj *Endpoint) MarshalJSON() string {
+func (obj *Endpoint) MarshalJSON() (error, string) {
 	var out bytes.Buffer
 	ba, err := json.Marshal(obj)
 	if err != nil {
-		glog.Error(err)
+		return(err)
 	}
 	err = json.Indent(&out, ba, "", "  ")
 	if err != nil {
-		glog.Error(err)
+		return(err)
 	}
 	return out.String()
 }
@@ -108,7 +108,6 @@ func ParseConsumer(file string) (error, *Consumer) {
 func ParseEndpoint(file string) (error, *Endpoint) {
 	b, err := ioutil.ReadFile(file)
 	if err != nil {
-		glog.Error(err)
 		return(err)
 	}
 
@@ -117,7 +116,6 @@ func ParseEndpoint(file string) (error, *Endpoint) {
 
 	err = json.Unmarshal(b, &ep)
 	if err != nil {
-		glog.Error(err)
 		return(err)
 	}
 	return ep
