@@ -88,11 +88,11 @@ func (obj *Endpoint) MarshalJSON() (error, string) {
 	var out bytes.Buffer
 	ba, err := json.Marshal(obj)
 	if err != nil {
-		return (err)
+		return err, "Error"
 	}
 	err = json.Indent(&out, ba, "", "  ")
 	if err != nil {
-		return (err)
+		return err, "Error"
 	}
 	return nil, out.String()
 }
