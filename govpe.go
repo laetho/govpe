@@ -94,7 +94,7 @@ func (obj *Endpoint) MarshalJSON() (error, string) {
 	if err != nil {
 		return (err)
 	}
-	return out.String()
+	return nil, out.String()
 }
 
 func ParseConsumer(file string) (error, *Consumer) {
@@ -105,7 +105,7 @@ func ParseConsumer(file string) (error, *Consumer) {
 func ParseEndpoint(file string) (error, *Endpoint) {
 	b, err := ioutil.ReadFile(file)
 	if err != nil {
-		return (err)
+		return err, &Endpoint{}
 	}
 
 	err = nil
@@ -113,7 +113,7 @@ func ParseEndpoint(file string) (error, *Endpoint) {
 
 	err = json.Unmarshal(b, &ep)
 	if err != nil {
-		return (err)
+		return err, &Endpoint{}
 	}
-	return ep
+	return nil, &ep
 }
