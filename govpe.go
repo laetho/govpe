@@ -19,10 +19,7 @@ package govpe
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/golang/glog"
-	"github.com/laetho/govpe"
 	"io/ioutil"
-	"os"
 )
 
 type PolicyEngineModule string
@@ -91,11 +88,11 @@ func (obj *Endpoint) MarshalJSON() (error, string) {
 	var out bytes.Buffer
 	ba, err := json.Marshal(obj)
 	if err != nil {
-		return(err)
+		return (err)
 	}
 	err = json.Indent(&out, ba, "", "  ")
 	if err != nil {
-		return(err)
+		return (err)
 	}
 	return out.String()
 }
@@ -108,7 +105,7 @@ func ParseConsumer(file string) (error, *Consumer) {
 func ParseEndpoint(file string) (error, *Endpoint) {
 	b, err := ioutil.ReadFile(file)
 	if err != nil {
-		return(err)
+		return (err)
 	}
 
 	err = nil
@@ -116,7 +113,7 @@ func ParseEndpoint(file string) (error, *Endpoint) {
 
 	err = json.Unmarshal(b, &ep)
 	if err != nil {
-		return(err)
+		return (err)
 	}
 	return ep
 }
